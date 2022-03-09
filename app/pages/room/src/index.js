@@ -1,4 +1,4 @@
-import SocketBuilder from "../../_shared/socketBuilder.js";
+import SocketBuilder from "../../_shared/socket-builder.js";
 import { constants } from "../../_shared/constants.js";
 
 const room = {
