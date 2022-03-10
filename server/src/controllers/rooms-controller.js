@@ -24,9 +24,8 @@ export default class RoomsController {
 
     const updatedRoom = this.#joinUserRoom(socket, updatedUserData, room);
 
-    console.log({ updatedRoom });
-
-    socket.emit(constants.events.USER_CONNECTED, updatedUserData);
+    this.#notifyUsersOnRoom(socket, roomId, updatedUserData);
+    this.#replyWithActiveUsers(socket, updatedRoom.users);
   }
 
   #joinUserRoom(socket, user, room) {
@@ -71,6 +70,20 @@ export default class RoomsController {
     });
 
     return mappedRoom;
+  }
+
+  #notifyUsersOnRoom(socket, roomId, user) {
+    const event = constants.events.USER_CONNECTED;
+
+    // envia para todos da sala exceto quem está entrando
+    socket.to(roomId).emit(event, user);
+  }
+
+  #replyWithActiveUsers(socket, users) {
+    const event = constants.events.LOBBY_UPDATED;
+
+    // envia apenas para quem está entrando
+    socket.emit(event, [...users.values()]);
   }
 
   #updateGlobalUserData(userId, userData = {}, roomId = "") {
