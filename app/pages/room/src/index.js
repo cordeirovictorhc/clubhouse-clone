@@ -2,13 +2,13 @@ import SocketBuilder from "../../_shared/socket-builder.js";
 import { constants } from "../../_shared/constants.js";
 
 const room = {
-  id: Date.now(),
+  id: "0001",
   topic: "JS Expert",
 };
 
 const user = {
   img: "https://cdn4.iconfinder.com/data/icons/glyphs/24/icons_user2-256.png",
-  username: "Victor Cordeiro",
+  username: `Victor ${Date.now()}`,
 };
 
 const socketBuilder = new SocketBuilder({
